@@ -1,4 +1,4 @@
-package com.example.ioc;
+package com.example.demo.ioc;
 
 public interface Service {
 

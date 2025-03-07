@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.ioc.Service;
+import com.example.demo.ioc.Service;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {

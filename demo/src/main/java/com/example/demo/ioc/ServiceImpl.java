@@ -1,4 +1,4 @@
-package com.example.ioc;
+package com.example.demo.ioc;
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service {
     private MyRepository repository;
