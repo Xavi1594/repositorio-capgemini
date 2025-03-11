@@ -23,12 +23,8 @@ public class DemoApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		System.out.println("arrancado");
 		srv.save();
-		ejemplosPruebas();
 
 	}
-	private void ejemplosPruebas(){
-		var calc = new Calculadora();
-		System.err.println("suma: " + calc.sumar(2, 3));
-	}
+	
 
 }
