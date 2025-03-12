@@ -2,10 +2,12 @@ package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class GildedRoseTest {
 
@@ -140,4 +142,25 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(expectedQuality, app.items[0].quality);
     }
+    	@ParameterizedTest(name = "{index} => sellIn: {0} quality: {1} –> sellIn: {2} quality: {3}")
+	@CsvSource({
+		"11, 10, 10, 8",
+		"7, 1, 6, 0",
+		"-5, 10, -6, 6",
+		"0, 3, -1, 0",
+		})
+	void product_Conjured_Test(int sellIn, int quality, int sellInResult, int qualityResult) {
+		String name = "Conjured Mana Cake";
+		Item product = new Item(name, sellIn, quality);
+       GildedRose app = new GildedRose(new Item[] { 
+       		product
+       });
+       app.updateQuality();
+       assertAll(name,
+       		() -> assertEquals(name, product.name, "name"),
+       		() -> assertEquals(sellInResult, product.sellIn, "sellIn"),
+       		() -> assertEquals(qualityResult, product.quality, "quality")
+       		);
+	}
+
 }
