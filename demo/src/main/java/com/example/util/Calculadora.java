@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.util;
 
 public class Calculadora {
     public double sumar(double a, double b) {

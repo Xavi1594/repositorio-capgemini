@@ -1,4 +1,4 @@
-package com.example.demo.ioc;
+package com.example.ioc;
 
 
 import org.springframework.stereotype.Repository;
