@@ -1,17 +1,20 @@
-package com.example.catalogo.domains.entities;
+package com.example.catalogo.entities;
+
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
 
-
+/**
+ * The persistent class for the actor database table.
+ * 
+ */
 @Entity
 @Table(name="actor")
-@NamedQuery(name ="Actor.findAll", query = "SELECT a FROM Actor a")
+@NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
 public class Actor implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
