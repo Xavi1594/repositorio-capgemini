@@ -10,7 +10,6 @@ import com.example.domains.entities.Actor;
 import com.example.ioc.Configuration;
 import com.example.ioc.Service;
 import com.example.ioc.ServiceImpl;
-import com.example.util.Calculadora;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
