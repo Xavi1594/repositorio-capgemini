@@ -6,8 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
+import com.example.catalogo.domains.contracts.repositories.FilmRepository;
 
-@SpringBootApplication
+import jakarta.transaction.Transactional;
+
+@SpringBootApplication(scanBasePackages = "com.example.catalogo")
 public class CatalogoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -15,6 +18,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.err.println("Aplicación arrancada");
@@ -22,7 +26,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	private ActorRepository dao;
+	private FilmRepository dao;
 
 	void prueba() {
 		dao.findAll().forEach(System.out::println);

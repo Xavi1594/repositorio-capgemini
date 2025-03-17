@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
+import java.sql.Timestamp;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -42,6 +43,21 @@ public class ActorTest {
     @Test
     void testGetFirstName() {
         assertEquals("Lamine", actor.getFirstName());
+    }
+
+    @Test
+    void testLastNameValidation() {
+        Actor actor = new Actor(1, "Lamine", "Y");
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+        assertFalse(violations.isEmpty(), "El apellido con menos de 2 caracteres no debería ser válido");
+
+        actor.setLastName("ApellidoMuyLargoQueExcedeElLimiteDeCuarentaYCincoCaracteres");
+        violations = validator.validate(actor);
+        assertFalse(violations.isEmpty(), "El apellido con más de 45 caracteres no debería ser válido");
+
+        actor.setLastName("");
+        violations = validator.validate(actor);
+        assertFalse(violations.isEmpty(), "El apellido no debería estar vacío");
     }
 
     @Test
@@ -82,6 +98,32 @@ public class ActorTest {
     void testEquals() {
         Actor actor2 = new Actor(1, "Lamine", "Yamal");
         assertEquals(actor, actor2);
+
+    }
+
+    @Test
+    @DisplayName("First name can contain ñ")
+    void testFirstNameWithÑ() {
+        Actor actor = new Actor(1, "PEPEÑITO", "GRILLO");
+
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+        assertTrue(violations.isEmpty(), "El nombre con ñ debería ser válido");
+    }
+
+    @Test
+    void testLastUpdateValidation() {
+        Actor actor = new Actor(1, "Lamine", "Yamal");
+        actor.setLastUpdate(new Timestamp(System.currentTimeMillis() + 10000));
+
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+        assertFalse(violations.isEmpty(), "La fecha de actualización no debería ser futura");
+    }
+
+    @Test
+    void testAddFilmActor() {
+        FilmActor filmActor = new FilmActor();
+        actor.addFilmActor(filmActor);
+        assertEquals(actor, filmActor.getActor());
 
     }
 

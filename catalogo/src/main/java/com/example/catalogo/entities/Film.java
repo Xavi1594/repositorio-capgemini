@@ -2,73 +2,96 @@ package com.example.catalogo.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.example.catalogo.domains.core.entities.AbstractEntity;
 
 /**
  * The persistent class for the film database table.
  * 
  */
+@SuppressWarnings("rawtypes")
 @Entity
-@Table(name="film")
-@NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
-public class Film implements Serializable {
+@Table(name = "film")
+@NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
+public class Film extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="film_id", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "film_id", unique = true, nullable = false)
 	private int filmId;
 
 	@Lob
 	private String description;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	private int length;
 
-	@Column(length=1)
+	@Column(length = 1)
 	private String rating;
 
-	@Column(name="release_year")
+	@Column(name = "release_year")
 	private Short releaseYear;
 
-	@Column(name="rental_duration", nullable=false)
+	@Column(name = "rental_duration", nullable = false)
 	private byte rentalDuration;
 
-	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
+	@Column(name = "rental_rate", nullable = false, precision = 10, scale = 2)
 	private BigDecimal rentalRate;
 
-	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
+	@Column(name = "replacement_cost", nullable = false, precision = 10, scale = 2)
 	private BigDecimal replacementCost;
 
-	@Column(nullable=false, length=128)
+	@Column(nullable = false, length = 128)
+	@NotBlank(message = "El título no debería estar vacío")
+	@Size(max = 128, message = "El título no debería exceder los 128 caracteres")
 	private String title;
 
-	//bi-directional many-to-one association to Language
+	// bi-directional many-to-one association to Language
 	@ManyToOne
-	@JoinColumn(name="language_id", nullable=false)
+	@JoinColumn(name = "language_id", nullable = false)
 	private Language language;
 
-	//bi-directional many-to-one association to Language
+	// bi-directional many-to-one association to Language
 	@ManyToOne
-	@JoinColumn(name="original_language_id")
+	@JoinColumn(name = "original_language_id")
 	private Language languageVO;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	// bi-directional many-to-one association to FilmActor
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmActor> filmActors;
 
-	//bi-directional many-to-one association to FilmCategory
-	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	// bi-directional many-to-one association to FilmCategory
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmCategory> filmCategories;
 
-	//bi-directional many-to-one association to Inventory
-	@OneToMany(mappedBy="film")
+	// bi-directional many-to-one association to Inventory
+	@OneToMany(mappedBy = "film")
 	private List<Inventory> inventories;
+
+	public Film(int filmId, String description, String rating, Short releaseYear, byte rentalDuration,
+			BigDecimal rentalRate, BigDecimal replacementCost, String title, Language language, Language languageVO) {
+		this.filmId = filmId;
+		this.description = description;
+		this.rating = rating;
+		this.releaseYear = releaseYear;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.replacementCost = replacementCost;
+		this.title = title;
+		this.language = language;
+		this.languageVO = languageVO;
+	}
 
 	public Film() {
 	}
@@ -233,6 +256,15 @@ public class Film implements Serializable {
 		inventory.setFilm(null);
 
 		return inventory;
+	}
+
+	@Override
+	public String toString() {
+		return "Film [filmId=" + filmId + ", description=" + description + ", lastUpdate=" + lastUpdate + ", length="
+				+ length + ", rating=" + rating + ", releaseYear=" + releaseYear + ", rentalDuration=" + rentalDuration
+				+ ", rentalRate=" + rentalRate + ", replacementCost=" + replacementCost + ", title=" + title
+				+ ", language=" + language + ", languageVO=" + languageVO + ", filmActors=" + filmActors
+				+ ", filmCategories=" + filmCategories + ", inventories=" + inventories + "]";
 	}
 
 }
