@@ -134,5 +134,4 @@ public class Category extends AbstractEntity implements Serializable {
 	public String toString() {
 		return "Category name=" + name + " ID=" + categoryId;
 	}
-
 }

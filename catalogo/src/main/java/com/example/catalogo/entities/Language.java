@@ -2,7 +2,9 @@ package com.example.catalogo.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,6 +15,7 @@ import com.example.catalogo.domains.core.entities.AbstractEntity;
  * The persistent class for the language database table.
  * 
  */
+@SuppressWarnings("rawtypes")
 @Entity
 @Table(name = "language")
 @NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
@@ -34,6 +37,8 @@ public class Language extends AbstractEntity implements Serializable {
 	}
 
 	@Column(nullable = false, length = 20)
+	@NotBlank
+	@Pattern(regexp = "^[A-ZÁÉÍÓÚÑÜ]*$", message = "El nombre debe estar en mayúsculas")
 	private String name;
 
 	// bi-directional many-to-one association to Film
@@ -113,6 +118,12 @@ public class Language extends AbstractEntity implements Serializable {
 		filmsVO.setLanguageVO(null);
 
 		return filmsVO;
+	}
+
+	@Override
+	public String toString() {
+		return "Language [languageId=" + languageId + ", name=" + name + "]";
+
 	}
 
 }

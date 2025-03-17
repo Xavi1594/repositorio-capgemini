@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.catalogo.domains.contracts.repositories.CategoryRepository;
 import com.example.catalogo.domains.contracts.repositories.FilmRepository;
+import com.example.catalogo.domains.contracts.repositories.LanguageRepository;
+import com.example.catalogo.entities.Language;
 
 import jakarta.transaction.Transactional;
 
@@ -28,7 +30,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	private CategoryRepository dao;
+	private LanguageRepository dao;
 
 	void prueba() {
 		dao.findAll().forEach(System.out::println);
