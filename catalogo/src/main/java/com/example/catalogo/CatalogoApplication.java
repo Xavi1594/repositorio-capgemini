@@ -1,11 +1,13 @@
 package com.example.catalogo;
 
+import java.util.Locale.Category;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.catalogo.domains.contracts.repositories.ActorRepository;
+import com.example.catalogo.domains.contracts.repositories.CategoryRepository;
 import com.example.catalogo.domains.contracts.repositories.FilmRepository;
 
 import jakarta.transaction.Transactional;
@@ -26,7 +28,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	private FilmRepository dao;
+	private CategoryRepository dao;
 
 	void prueba() {
 		dao.findAll().forEach(System.out::println);

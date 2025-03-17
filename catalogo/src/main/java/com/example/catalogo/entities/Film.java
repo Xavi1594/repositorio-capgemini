@@ -80,7 +80,9 @@ public class Film extends AbstractEntity implements Serializable {
 	private List<Inventory> inventories;
 
 	public Film(int filmId, String description, String rating, Short releaseYear, byte rentalDuration,
-			BigDecimal rentalRate, BigDecimal replacementCost, String title, Language language, Language languageVO) {
+			BigDecimal rentalRate, BigDecimal replacementCost, String title, Language language, Language languageVO,
+			List<FilmActor> filmActors,
+			List<FilmCategory> filmCategories) {
 		this.filmId = filmId;
 		this.description = description;
 		this.rating = rating;
@@ -91,6 +93,8 @@ public class Film extends AbstractEntity implements Serializable {
 		this.title = title;
 		this.language = language;
 		this.languageVO = languageVO;
+		this.filmActors = filmActors;
+		this.filmCategories = filmCategories;
 	}
 
 	public Film() {
@@ -260,11 +264,7 @@ public class Film extends AbstractEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Film [filmId=" + filmId + ", description=" + description + ", lastUpdate=" + lastUpdate + ", length="
-				+ length + ", rating=" + rating + ", releaseYear=" + releaseYear + ", rentalDuration=" + rentalDuration
-				+ ", rentalRate=" + rentalRate + ", replacementCost=" + replacementCost + ", title=" + title
-				+ ", language=" + language + ", languageVO=" + languageVO + ", filmActors=" + filmActors
-				+ ", filmCategories=" + filmCategories + ", inventories=" + inventories + "]";
+		return "PELICULA: TITULO " + title + "";
 	}
 
 }

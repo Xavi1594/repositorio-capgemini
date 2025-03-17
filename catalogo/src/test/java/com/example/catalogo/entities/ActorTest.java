@@ -3,8 +3,11 @@ package com.example.catalogo.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.sql.Timestamp;
 
@@ -121,10 +124,18 @@ public class ActorTest {
 
     @Test
     void testAddFilmActor() {
-        FilmActor filmActor = new FilmActor();
-        actor.addFilmActor(filmActor);
-        assertEquals(actor, filmActor.getActor());
 
+        FilmActor filmActor = new FilmActor();
+
+        actor.setFilmActors(new ArrayList<>());
+
+        FilmActor addedFilmActor = actor.addFilmActor(filmActor);
+
+        assertNotNull(actor.getFilmActors());
+        assertEquals(1, actor.getFilmActors().size());
+        assertTrue(actor.getFilmActors().contains(filmActor));
+        assertSame(filmActor, addedFilmActor);
+        assertEquals(actor, filmActor.getActor());
     }
 
 }
