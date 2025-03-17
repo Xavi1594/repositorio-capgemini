@@ -2,37 +2,46 @@ package com.example.catalogo.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
+
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.example.catalogo.domains.core.entities.AbstractEntity;
 
 /**
  * The persistent class for the language database table.
  * 
  */
 @Entity
-@Table(name="language")
-@NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
-public class Language implements Serializable {
+@Table(name = "language")
+@NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
+public class Language extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="language_id", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "language_id", insertable = false, updatable = false, unique = true, nullable = false)
 	private int languageId;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
-	@Column(nullable=false, length=20)
+	public Language(int languageId, String name) {
+		this.languageId = languageId;
+		this.name = name;
+	}
+
+	@Column(nullable = false, length = 20)
 	private String name;
 
-	//bi-directional many-to-one association to Film
-	@OneToMany(mappedBy="language")
+	// bi-directional many-to-one association to Film
+	@OneToMany(mappedBy = "language")
 	private List<Film> films;
 
-	//bi-directional many-to-one association to Film
-	@OneToMany(mappedBy="languageVO")
+	// bi-directional many-to-one association to Film
+	@OneToMany(mappedBy = "languageVO")
 	private List<Film> filmsVO;
 
 	public Language() {

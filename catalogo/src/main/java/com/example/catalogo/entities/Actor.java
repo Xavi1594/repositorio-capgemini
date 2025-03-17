@@ -2,49 +2,66 @@ package com.example.catalogo.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
+import com.example.catalogo.domains.core.entities.AbstractEntity;
 
 /**
  * The persistent class for the actor database table.
  * 
  */
+@SuppressWarnings("rawtypes")
 @Entity
-@Table(name="actor")
-@NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
-public class Actor implements Serializable {
+@Table(name = "actor")
+@NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a")
+public class Actor extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="actor_id", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "actor_id", unique = true, nullable = false)
 	private int actorId;
 
-	@Column(name="first_name", nullable=false, length=45)
+	@Column(name = "first_name", nullable = false, length = 45)
+	@NotBlank
+	@Pattern(regexp = "^[A-Z]*$", message = "El nombre debe estar en mayúsculas")
 	private String firstName;
 
-	@Column(name="last_name", nullable=false, length=45)
+	@Column(name = "last_name", nullable = false, length = 45)
+	@NotBlank
+	@Size(max = 45, min = 2)
+
 	private String lastName;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="actor")
+	// bi-directional many-to-one association to FilmActor
+	@OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
 	private List<FilmActor> filmActors;
 
+	public Actor() {
+	}
+
 	public Actor(int actorId, String firstName, String lastName) {
+		super();
 		this.actorId = actorId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	public Actor() {
-	}
+
 	public Actor(int actorId) {
+		super();
 		this.actorId = actorId;
 	}
-
 
 	public int getActorId() {
 		return this.actorId;
@@ -99,16 +116,12 @@ public class Actor implements Serializable {
 
 		return filmActor;
 	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + actorId;
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
-		return result;
+		return Objects.hash(actorId);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,28 +131,13 @@ public class Actor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Actor other = (Actor) obj;
-		if (actorId != other.actorId)
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (lastUpdate == null) {
-			if (other.lastUpdate != null)
-				return false;
-		} else if (!lastUpdate.equals(other.lastUpdate))
-			return false;
-		return true;
+		return actorId == other.actorId;
 	}
+
 	@Override
 	public String toString() {
-		return "Actor [actorId=" + actorId + ", firstName=" + firstName +  "]";
+		return "Actor [actorId=" + actorId + ", firstName=" + firstName + ", lastName=" + lastName + ", lastUpdate="
+				+ lastUpdate + "]";
 	}
 
 }

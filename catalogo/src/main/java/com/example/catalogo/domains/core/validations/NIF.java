@@ -27,7 +27,7 @@ public @interface NIF {
         public boolean isValid(String value, ConstraintValidatorContext context) {
             if (value == null)
                 return true;
-            return CadenasValidator.isNIF(value);
+            return StringValidator.isNIF(value);
         }
     }
 }
