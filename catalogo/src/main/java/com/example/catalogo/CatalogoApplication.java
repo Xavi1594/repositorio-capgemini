@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
-import com.example.catalogo.domains.contracts.services.ActorsService;
-import com.example.catalogo.entities.Actor;
 
 @SpringBootApplication
 public class CatalogoApplication implements CommandLineRunner {

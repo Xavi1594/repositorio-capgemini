@@ -3,6 +3,7 @@ package com.example.catalogo.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ActorTest {
@@ -23,6 +25,13 @@ public class ActorTest {
     }
 
     Actor actor = new Actor(1, "Lamine", "Yamal");
+
+    @Test
+    @DisplayName("Is a valid actor")
+    void isValidTest() {
+        var fixture = new Actor(0, "PEPITO", "GRILLO");
+        assertTrue(fixture.isValid());
+    }
 
     @Test
     void testGetActorId() {
@@ -58,8 +67,8 @@ public class ActorTest {
 
     @Test
     void testActorWithInvalidFirstName() {
-        Actor actor = new Actor(1, null, "Yamal");
-        assertNotEquals("Lamine", actor.getFirstName());
+        Actor actor1 = new Actor(1, null, "Yamal");
+        assertNotEquals("Lamine", actor1.getFirstName());
     }
 
     @Test
@@ -67,6 +76,13 @@ public class ActorTest {
         Actor actor = new Actor(1, " ", "Yamal");
         Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
         assertFalse(violations.isEmpty());
+    }
+
+    @Test
+    void testEquals() {
+        Actor actor2 = new Actor(1, "Lamine", "Yamal");
+        assertEquals(actor, actor2);
+
     }
 
 }
