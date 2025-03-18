@@ -1,16 +1,11 @@
 package com.example.catalogo;
 
-import java.util.Locale.Category;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.catalogo.domains.contracts.repositories.CategoryRepository;
-import com.example.catalogo.domains.contracts.repositories.FilmRepository;
 import com.example.catalogo.domains.contracts.repositories.LanguageRepository;
-import com.example.catalogo.entities.Language;
 
 import jakarta.transaction.Transactional;
 
