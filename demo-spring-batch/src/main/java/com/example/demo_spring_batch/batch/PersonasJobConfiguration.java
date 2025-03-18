@@ -131,14 +131,38 @@ public class PersonasJobConfiguration {
                 .build();
     }
 
+    // @Bean
+    // public Job personasJob(PersonasJobListener listener,
+    // JdbcBatchItemWriter<Persona> personaDBItemWriter,
+    // Step exportDB2CSVStep) {
+    // return new JobBuilder("personasJob", jobRepository)
+    // .incrementer(new RunIdIncrementer())
+    // .listener(listener)
+    // .start(importCSV2DBStep(1, "input/personas-1.csv", personaDBItemWriter))
+    // .next(exportDB2CSVStep)
+    // .build();
+    // }
     @Bean
-    public Job personasJob(PersonasJobListener listener, JdbcBatchItemWriter<Persona> personaDBItemWriter,
-            Step exportDB2CSVStep) {
+    public FTPLoadTasklet ftpLoadTasklet(@Value("${input.dir.name:./ftp}") String dir) {
+        FTPLoadTasklet tasklet = new FTPLoadTasklet();
+        tasklet.setDirectoryResource(new FileSystemResource(dir));
+        return tasklet;
+    }
+
+    @Bean
+    public Step copyFilesInDir(FTPLoadTasklet ftpLoadTasklet) {
+        return new StepBuilder("copyFilesInDir", jobRepository)
+                .tasklet(ftpLoadTasklet, transactionManager)
+                .build();
+    }
+
+    @Bean
+    public Job personasJob(PersonasJobListener listener, Step copyFilesInDir) {
         return new JobBuilder("personasJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
-                .start(importCSV2DBStep(1, "input/personas-1.csv", personaDBItemWriter))
-                .next(exportDB2CSVStep)
+                .start(copyFilesInDir)
                 .build();
     }
+
 }
