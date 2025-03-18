@@ -1,5 +1,8 @@
 package com.example.demo_spring_batch.batch;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import javax.sql.DataSource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -12,6 +15,7 @@ import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
@@ -24,20 +28,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.example.demo_spring_batch.models.Persona;
 import com.example.demo_spring_batch.models.PersonaDTO;
+import com.example.demo_spring_batch.models.PhotoDTO;
 
 @Configuration
 public class PersonasJobConfiguration {
+
+    private final Step photoStep;
     @Autowired
     JobRepository jobRepository;
     @Autowired
     PlatformTransactionManager transactionManager;
+
+    PersonasJobConfiguration(Step photoStep) {
+        this.photoStep = photoStep;
+    }
 
     public FlatFileItemReader<PersonaDTO> personaCSVItemReader(String fname) {
         return new FlatFileItemReaderBuilder<PersonaDTO>().name("personaCSVItemReader")
@@ -156,13 +167,39 @@ public class PersonasJobConfiguration {
                 .build();
     }
 
+    @Autowired
+    PhotoRestItemReader photoRestItemReader;
+
     @Bean
-    public Job personasJob(PersonasJobListener listener, Step copyFilesInDir) {
-        return new JobBuilder("personasJob", jobRepository)
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .start(copyFilesInDir)
+    Step photoStep(JdbcCursorItemReader<Persona> personaDBItemReader) {
+        String[] headers = new String[] { "id", "author", "width", "height", "url", "download_url" };
+        return new StepBuilder("photoStep1", jobRepository)
+                .<PhotoDTO, PhotoDTO>chunk(100, transactionManager).reader(photoRestItemReader)
+                .writer(new FlatFileItemWriterBuilder<PhotoDTO>().name("photoCSVItemWriter")
+                        .resource(new FileSystemResource("output/photoData.csv"))
+                        .headerCallback(new FlatFileHeaderCallback() {
+                            public void writeHeader(Writer writer) throws IOException {
+                                writer.write(String.join(",", headers));
+                            }
+                        }).lineAggregator(new DelimitedLineAggregator<PhotoDTO>() {
+                            {
+                                setDelimiter(",");
+                                setFieldExtractor(new BeanWrapperFieldExtractor<PhotoDTO>() {
+                                    {
+                                        setNames(headers);
+                                    }
+                                });
+                            }
+                        }).build())
                 .build();
     }
 
+    @Bean
+    public Job personasJob(PersonasJobListener listener) {
+        return new JobBuilder("personasJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .listener(listener)
+                .start(photoStep)
+                .build();
+    }
 }
