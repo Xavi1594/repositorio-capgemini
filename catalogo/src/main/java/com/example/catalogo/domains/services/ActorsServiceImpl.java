@@ -1,5 +1,6 @@
 package com.example.catalogo.domains.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +78,10 @@ public class ActorsServiceImpl implements ActorsService {
         // throw new NotFoundException("El actor no existe");
         // }
         dao.deleteById(id);
+    }
+
+    @Override
+    public List<Actor> NewsDTO(Timestamp lastUpdate) {
+        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(lastUpdate);
     }
 }

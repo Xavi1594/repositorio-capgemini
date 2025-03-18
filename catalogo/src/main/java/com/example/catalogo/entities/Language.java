@@ -106,20 +106,6 @@ public class Language extends AbstractEntity implements Serializable {
 		this.filmsVO = filmsVO;
 	}
 
-	public Film addFilmsVO(Film filmsVO) {
-		getFilmsVO().add(filmsVO);
-		filmsVO.setLanguageVO(this);
-
-		return filmsVO;
-	}
-
-	public Film removeFilmsVO(Film filmsVO) {
-		getFilmsVO().remove(filmsVO);
-		filmsVO.setLanguageVO(null);
-
-		return filmsVO;
-	}
-
 	@Override
 	public String toString() {
 		return "Language [languageId=" + languageId + ", name=" + name + "]";

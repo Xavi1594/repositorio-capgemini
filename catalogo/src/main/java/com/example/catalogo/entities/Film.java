@@ -2,6 +2,8 @@ package com.example.catalogo.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -41,6 +43,8 @@ public class Film extends AbstractEntity implements Serializable {
 	private String rating;
 
 	@Column(name = "release_year")
+	@Min(value = 1901)
+	@Max(value = 2155)
 	private Short releaseYear;
 
 	@Column(name = "rental_duration", nullable = false)
