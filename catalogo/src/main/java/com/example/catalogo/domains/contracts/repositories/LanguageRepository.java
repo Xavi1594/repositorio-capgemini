@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.example.catalogo.entities.Language;
+import com.example.catalogo.domains.core.contracts.services.DomainService;
+import com.example.catalogo.domains.entities.Language;
 
 public interface LanguageRepository extends JpaRepository<Language, Integer>, JpaSpecificationExecutor<Language> {
     List<Language> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp lastUpdate);

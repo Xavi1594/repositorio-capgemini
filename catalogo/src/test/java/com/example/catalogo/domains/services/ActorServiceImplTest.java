@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
 import com.example.catalogo.domains.contracts.services.ActorsService;
-import com.example.catalogo.entities.Actor;
+import com.example.catalogo.domains.entities.Actor;
 
 @DataJpaTest
 @ComponentScan(basePackages = "com.example.catalogo")

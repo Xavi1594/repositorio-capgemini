@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
 import com.example.catalogo.domains.contracts.services.ActorsService;
-import com.example.catalogo.entities.Actor;
+import com.example.catalogo.domains.entities.Actor;
 import com.example.catalogo.exceptions.DuplicateKeyException;
 import com.example.catalogo.exceptions.InvalidDataException;
 import com.example.catalogo.exceptions.NotFoundException;

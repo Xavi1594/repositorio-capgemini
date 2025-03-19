@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.catalogo.domains.contracts.repositories.LanguageRepository;
 import com.example.catalogo.domains.contracts.services.LanguageService;
-import com.example.catalogo.entities.Language;
+import com.example.catalogo.domains.entities.Language;
 import com.example.catalogo.exceptions.DuplicateKeyException;
 import com.example.catalogo.exceptions.InvalidDataException;
 import com.example.catalogo.exceptions.NotFoundException;
@@ -67,7 +67,7 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<Language> NewsDTO(Timestamp lastUpdate) {
+    public List<Language> newsDTO(Timestamp lastUpdate) {
         return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(lastUpdate);
     }
 

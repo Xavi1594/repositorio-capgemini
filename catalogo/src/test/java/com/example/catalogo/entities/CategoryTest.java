@@ -17,6 +17,9 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.example.catalogo.domains.entities.Category;
+import com.example.catalogo.domains.entities.FilmCategory;
+
 public class CategoryTest {
 
     private static Validator validator;

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.catalogo.entities.Actor;
+import com.example.catalogo.domains.entities.Actor;
 
 public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor> {
     @Query(value = "SELECT a FROM Actor a WHERE a.actorId > ?1")

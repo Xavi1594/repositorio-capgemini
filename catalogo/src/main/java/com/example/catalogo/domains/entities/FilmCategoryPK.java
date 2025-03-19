@@ -1,4 +1,4 @@
-package com.example.catalogo.entities;
+package com.example.catalogo.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
@@ -9,26 +9,30 @@ import jakarta.persistence.*;
  */
 @Embeddable
 public class FilmCategoryPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="film_id", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name = "film_id", insertable = false, updatable = false, unique = true, nullable = false)
 	private int filmId;
 
-	@Column(name="category_id", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name = "category_id", insertable = false, updatable = false, unique = true, nullable = false)
 	private byte categoryId;
 
 	public FilmCategoryPK() {
 	}
+
 	public int getFilmId() {
 		return this.filmId;
 	}
+
 	public void setFilmId(int filmId) {
 		this.filmId = filmId;
 	}
+
 	public byte getCategoryId() {
 		return this.categoryId;
 	}
+
 	public void setCategoryId(byte categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -40,10 +44,9 @@ public class FilmCategoryPK implements Serializable {
 		if (!(other instanceof FilmCategoryPK)) {
 			return false;
 		}
-		FilmCategoryPK castOther = (FilmCategoryPK)other;
-		return 
-			(this.filmId == castOther.filmId)
-			&& (this.categoryId == castOther.categoryId);
+		FilmCategoryPK castOther = (FilmCategoryPK) other;
+		return (this.filmId == castOther.filmId)
+				&& (this.categoryId == castOther.categoryId);
 	}
 
 	public int hashCode() {
@@ -51,7 +54,7 @@ public class FilmCategoryPK implements Serializable {
 		int hash = 17;
 		hash = hash * prime + this.filmId;
 		hash = hash * prime + ((int) this.categoryId);
-		
+
 		return hash;
 	}
 }

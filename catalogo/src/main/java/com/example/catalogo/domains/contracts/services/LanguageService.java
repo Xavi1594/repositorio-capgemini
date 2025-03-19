@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.example.catalogo.domains.core.contracts.services.DomainService;
-import com.example.catalogo.entities.Language;
+import com.example.catalogo.domains.entities.Language;
 
 public interface LanguageService extends DomainService<Language, Integer> {
-    List<Language> NewsDTO(Timestamp lastUpdate);
+    List<Language> newsDTO(Timestamp lastUpdate);
 }

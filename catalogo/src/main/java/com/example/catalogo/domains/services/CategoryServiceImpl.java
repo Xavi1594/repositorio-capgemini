@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.catalogo.domains.contracts.repositories.CategoryRepository;
 import com.example.catalogo.domains.contracts.services.CategoriesService;
-import com.example.catalogo.entities.Category;
+import com.example.catalogo.domains.entities.Category;
 import com.example.catalogo.exceptions.DuplicateKeyException;
 import com.example.catalogo.exceptions.InvalidDataException;
 import com.example.catalogo.exceptions.NotFoundException;
@@ -66,8 +66,8 @@ public class CategoryServiceImpl implements CategoriesService {
     }
 
     @Override
-    public List<Category> NewsDTO(Timestamp fecha) {
-        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
+    public List<Category> newsDTO(Timestamp lastUpdate) {
+        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(lastUpdate);
     }
 
 }

@@ -19,6 +19,9 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.example.catalogo.domains.entities.Actor;
+import com.example.catalogo.domains.entities.FilmActor;
+
 public class ActorTest {
 
     private static Validator validator;

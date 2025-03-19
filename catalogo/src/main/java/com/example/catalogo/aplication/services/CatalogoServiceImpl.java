@@ -12,6 +12,8 @@ import com.example.catalogo.domains.contracts.services.ActorsService;
 import com.example.catalogo.domains.contracts.services.CategoriesService;
 import com.example.catalogo.domains.contracts.services.FilmService;
 import com.example.catalogo.domains.contracts.services.LanguageService;
+import com.example.catalogo.domains.entities.models.ActorDTO;
+import com.example.catalogo.domains.entities.models.FilmShortDTO;
 
 @Service
 public class CatalogoServiceImpl implements CatalogoService {
@@ -26,16 +28,13 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     @Override
     public NewsDTO newsDTO(Timestamp lastUpdate) {
-        // Timestamp fecha = Timestamp.valueOf("2019-01-01 00:00:00");
         if (lastUpdate == null)
             lastUpdate = Timestamp.from(Instant.now().minusSeconds(36000));
         return new NewsDTO(
                 filmSrv.newsDTO(lastUpdate).stream().map(item -> new FilmShortDTO(item.getFilmId(), item.getTitle()))
                         .toList(),
-                actorSrv.NewsDTO(lastUpdate).stream()
-                        .map(item -> new ActorShortDTO(item.getActorId(), item.getFirstName(), item.getLastName())),
-                categorySrv.NewsDTO(lastUpdate),
-                languageSrv.NewsDTO(lastUpdate));
+                actorSrv.NewsDTO(lastUpdate).stream().map(item -> ActorDTO.from(item)).toList(),
+                categorySrv.newsDTO(lastUpdate),
+                languageSrv.newsDTO(lastUpdate));
     }
-
 }
