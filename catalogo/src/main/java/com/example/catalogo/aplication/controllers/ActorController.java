@@ -1,9 +1,12 @@
 package com.example.catalogo.aplication.controllers;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -15,10 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.catalogo.aplication.contracts.CatalogoService;
+import com.example.catalogo.aplication.models.NewsDTO;
 import com.example.catalogo.domains.contracts.services.ActorsService;
 import com.example.catalogo.domains.entities.models.ActorDTO;
 import com.example.catalogo.exceptions.BadRequestException;
@@ -37,6 +43,8 @@ import jakarta.validation.Valid;
 @Tag(name = "Actors", description = "Actors API")
 class ActorController {
     private final ActorsService actorService;
+    @Autowired
+    private CatalogoService catalogoService;
 
     public ActorController(ActorsService actorService) {
         super();
@@ -74,6 +82,19 @@ class ActorController {
     @Operation(summary = "Get a page of entities")
     public Page<ActorDTO> getAll(@ParameterObject Pageable pageable) {
         return actorService.getByProjection(pageable, ActorDTO.class);
+    }
+
+    @GetMapping("/new")
+    public List<ActorDTO> getNewActors(@RequestParam(required = false) Long daysAgo) {
+        if (daysAgo == null) {
+            daysAgo = 2L;
+        }
+
+        Timestamp lastUpdate = Timestamp.valueOf(LocalDate.now().minusDays(daysAgo).atStartOfDay());
+
+        NewsDTO news = catalogoService.newsDTO(lastUpdate);
+
+        return news.getActors();
     }
 
     record Title(int id, String titulo) {
