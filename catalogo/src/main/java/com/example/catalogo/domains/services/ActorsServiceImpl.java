@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
@@ -81,7 +84,32 @@ public class ActorsServiceImpl implements ActorsService {
     }
 
     @Override
+    public <T> Iterable<T> getByProjection(Sort sort, Class<T> type) {
+        return dao.findAllBy(sort, type);
+    }
+
+    @Override
+    public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
+        return dao.findAllBy(pageable, type);
+    }
+
+    @Override
+    public Iterable<Actor> getAll(Sort sort) {
+        return dao.findAll(sort);
+    }
+
+    @Override
+    public Page<Actor> getAll(Pageable pageable) {
+        return dao.findAll(pageable);
+    }
+
+    @Override
     public List<Actor> NewsDTO(Timestamp lastUpdate) {
         return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(lastUpdate);
+    }
+
+    @Override
+    public <T> List<T> getByProjection(Class<T> type) {
+        return dao.findAllBy(type);
     }
 }
