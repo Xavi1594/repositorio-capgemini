@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.catalogo.domains.entities.Film;
-import com.example.catalogo.domains.entities.Film.SpecialFeature;
-import com.example.catalogo.domains.entities.Language;
 
 //import io.swagger.v3.oas.annotations.media.ArraySchema;
 //import io.swagger.v3.oas.annotations.media.Schema;

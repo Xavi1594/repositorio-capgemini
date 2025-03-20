@@ -3,6 +3,9 @@ package com.example.catalogo.aplication.controllers;
 import java.net.URI;
 import java.util.List;
 
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,10 +26,15 @@ import com.example.catalogo.exceptions.DuplicateKeyException;
 import com.example.catalogo.exceptions.InvalidDataException;
 import com.example.catalogo.exceptions.NotFoundException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/actors/v1")
+@Tag(name = "Actors", description = "Actors API")
 class ActorController {
     private final ActorsService actorService;
 
@@ -41,6 +49,7 @@ class ActorController {
     }
 
     @GetMapping(path = "/{id}")
+    @Operation(description = "Get one entity by id")
     public ActorDTO getOne(@PathVariable int id) throws NotFoundException {
         var item = actorService.getOne(id);
         if (item.isEmpty()) {
@@ -50,6 +59,9 @@ class ActorController {
     }
 
     @PostMapping
+    @ApiResponse(responseCode = "201", description = "Entity created")
+    @Operation(description = "Create a new entity")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item)
             throws BadRequestException, DuplicateKeyException, InvalidDataException {
         var newItem = actorService.add(ActorDTO.from(item));
@@ -58,7 +70,32 @@ class ActorController {
         return ResponseEntity.created(location).build();
     }
 
+    @GetMapping(params = { "page" })
+    @Operation(summary = "Get a page of entities")
+    public Page<ActorDTO> getAll(@ParameterObject Pageable pageable) {
+        return actorService.getByProjection(pageable, ActorDTO.class);
+    }
+
+    record Title(int id, String titulo) {
+    }
+
+    @GetMapping("path" + "/{id}/movies")
+    @Operation(description = "Get movies by actor")
+    @ApiResponse(responseCode = "200", description = "Movies found")
+    @Transactional
+    public List<Title> getMovies(@PathVariable int id) throws NotFoundException {
+        var item = actorService.getOne(id);
+        if (item.isEmpty()) {
+            throw new NotFoundException("No se encontró el actor con id " + id);
+        }
+        return item.get().getFilmActors().stream()
+                .map(o -> new Title(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+                .toList();
+    }
+
     @PutMapping("/{id}")
+    @ApiResponse(responseCode = "204", description = "Entity updated")
+    @Operation(description = "Update an entity")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item)
             throws BadRequestException, NotFoundException, InvalidDataException {
@@ -69,6 +106,8 @@ class ActorController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiResponse(responseCode = "204", description = "Entity deleted")
+    @Operation(description = "Delete an entity")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         actorService.deleteById(id);
