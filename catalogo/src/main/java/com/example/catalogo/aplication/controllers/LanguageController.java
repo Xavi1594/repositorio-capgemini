@@ -2,14 +2,12 @@ package com.example.catalogo.aplication.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.catalogo.domains.contracts.repositories.LanguageRepository;
-import com.example.catalogo.domains.contracts.services.LanguageService;
 import com.example.catalogo.domains.entities.Language;
 import com.example.catalogo.exceptions.NotFoundException;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,13 +25,13 @@ public class LanguageController {
     }
 
     @GetMapping
-    @JsonView(Language.Complete.class)
+    @JsonView(Language.Partial.class)
     public List<Language> getAllLanguages() throws Exception {
         return languageRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    @JsonView(Language.Partial.class)
+    @JsonView(Language.Complete.class)
     public Language getOne(@PathVariable int id) throws NotFoundException {
         var item = languageRepository.findById(id);
         if (item.isEmpty()) {

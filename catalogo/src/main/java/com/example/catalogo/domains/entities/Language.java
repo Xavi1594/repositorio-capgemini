@@ -5,11 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 import com.example.catalogo.domains.core.entities.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -37,6 +40,9 @@ public class Language extends AbstractEntity implements Serializable {
 
 	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
 	@PastOrPresent
+	@JsonView(Language.Complete.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonProperty("ultimaModificacion")
 	private Timestamp lastUpdate;
 
 	public Language(int languageId, String name) {
@@ -46,6 +52,9 @@ public class Language extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false, length = 20)
 	@NotBlank
+	@Size(max = 20)
+	@JsonProperty("idioma")
+	@JsonView(Language.Partial.class)
 	@Pattern(regexp = "^[A-ZÁÉÍÓÚÑÜ]*$", message = "El nombre debe estar en mayúsculas")
 	private String name;
 
