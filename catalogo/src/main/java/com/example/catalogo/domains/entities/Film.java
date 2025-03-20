@@ -221,7 +221,7 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	@JsonBackReference
 	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
 
-	public Film() {
+	public Film(int i, String string) {
 	}
 
 	public Film(int filmId) {
@@ -270,6 +270,12 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.length = length;
 		this.replacementCost = replacementCost;
 		this.rating = rating;
+	}
+
+	public Film(int filmId2, String title2, String description2, Short releaseYear2, Integer languageId,
+			Integer languageVOId, Byte rentalDuration2, BigDecimal rentalRate2, Integer length2,
+			BigDecimal replacementCost2, Object object) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getFilmId() {

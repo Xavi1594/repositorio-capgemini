@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.example.catalogo.domains.core.entities.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * The persistent class for the language database table.
@@ -22,8 +23,15 @@ import com.example.catalogo.domains.core.entities.AbstractEntity;
 public class Language extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static class Partial {
+	}
+
+	public static class Complete extends Partial {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Language.Partial.class)
 	@Column(name = "language_id", insertable = false, updatable = false, unique = true, nullable = false)
 	private int languageId;
 

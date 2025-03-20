@@ -86,12 +86,22 @@ public class FilmServiceImpl implements FilmService {
     @Override
     @Transactional
     public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
-        if (item == null)
-            throw new InvalidDataException("No puede ser nulo");
-        if (item.isInvalid())
+        // Validar que el objeto no es nulo
+        if (item == null) {
+            throw new InvalidDataException("El objeto no puede ser nulo");
+        }
+
+        // Validar que el objeto tiene datos válidos
+        if (item.isInvalid()) {
             throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
-        if (dao.existsById(item.getFilmId()))
-            throw new DuplicateKeyException(item.getErrorsMessage());
+        }
+
+        // Verificar si ya existe una película con el mismo ID
+        if (dao.existsById(item.getFilmId())) {
+            throw new DuplicateKeyException("Ya existe una película con el ID " + item.getFilmId());
+        }
+
+        // Guardar la película en la base de datos
         return dao.save(item);
     }
 

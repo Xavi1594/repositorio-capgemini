@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.catalogo.domains.entities.Film;
+import com.example.catalogo.domains.entities.Film.SpecialFeature;
 
 //import io.swagger.v3.oas.annotations.media.ArraySchema;
 //import io.swagger.v3.oas.annotations.media.Schema;
@@ -91,25 +92,24 @@ public class FilmEditDTO {
                                                 .collect(Collectors.toList()));
         }
 
-        // public static Film from(FilmEditDTO source) {
-        // Film rslt = new Film(
-        // source.getFilmId(),
-        // source.getTitle(),
-        // source.getDescription(),
-        // source.getReleaseYear(),
-        // source.getLanguageId() == null ? null : new Language(source.getLanguageId()),
-        // source.getLanguageVOId() == null ? null : new
-        // Language(source.getLanguageVOId()),
-        // source.getRentalDuration(),
-        // source.getRentalRate(),
-        // source.getLength(),
-        // source.getReplacementCost(),
-        // source.getRating() == null ? null : Film.Rating.getEnum(source.getRating()));
-        // source.getActors().stream().forEach(item -> rslt.addActor(item));
-        // source.getCategories().stream().forEach(item -> rslt.addCategory(item));
-        // source.getSpecialFeatures().stream()
-        // .forEach(item -> rslt.addSpecialFeatures(SpecialFeature.getEnum(item)));
-        // return rslt;
-        // }
+        public static Film from(FilmEditDTO source) {
+                Film rslt = new Film(
+                                source.getFilmId(),
+                                source.getTitle(),
+                                source.getDescription(),
+                                source.getReleaseYear(),
+                                source.getLanguageId(),
+                                source.getLanguageVOId(),
+                                source.getRentalDuration(),
+                                source.getRentalRate(),
+                                source.getLength(),
+                                source.getReplacementCost(),
+                                source.getRating() == null ? null : Film.Rating.getEnum(source.getRating()));
+                source.getActors().stream().forEach(item -> rslt.addActor(item));
+                source.getCategories().stream().forEach(item -> rslt.addCategory(item));
+                source.getSpecialFeatures().stream()
+                                .forEach(item -> rslt.addSpecialFeatures(SpecialFeature.getEnum(item)));
+                return rslt;
+        }
 
 }

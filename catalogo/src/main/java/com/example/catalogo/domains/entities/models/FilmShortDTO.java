@@ -12,7 +12,13 @@ public record FilmShortDTO(
         @JsonProperty("titulo")
         // @Schema(description = "Titulo de la pelicula")
         String title) {
-    public static FilmShortDTO from(Film source) {
-        return new FilmShortDTO(source.getFilmId(), source.getTitle());
+    public static FilmShortDTO from(Film film) {
+        return new FilmShortDTO(film.getFilmId(), film.getTitle());
+    }
+
+    public static Film from(FilmShortDTO source) {
+        return new Film(
+                source.filmId(),
+                source.title());
     }
 }
