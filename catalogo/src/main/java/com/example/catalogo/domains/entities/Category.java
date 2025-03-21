@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.example.catalogo.domains.core.entities.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * The persistent class for the category database table.
@@ -24,20 +26,23 @@ public class Category extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@Column(name = "category_id", unique = true, nullable = false)
 	private int categoryId;
 
 	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
 	@PastOrPresent
-
+	@JsonIgnore
 	private Timestamp lastUpdate;
 
 	@Column(nullable = false, length = 25)
 	@NotBlank
-	@Pattern(regexp = "^[A-ZÁÉÍÓÚÑÜ]*$", message = "El nombre debe estar en mayúsculas")
+	// @JsonView(Language.Partial.class)
+
 	private String name;
 
 	// bi-directional many-to-one association to FilmCategory
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<FilmCategory> filmCategories;
 

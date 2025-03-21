@@ -73,9 +73,6 @@ public class LanguageController {
     @JsonView(Language.Partial.class)
     public Language modify(@PathVariable int id, @Valid @RequestBody Language item)
             throws BadRequestException, NotFoundException, InvalidDataException {
-        if (item.getLanguageId() != id)
-            System.out.println("ID recibido: " + id);
-        System.out.println("ID del lenguaje: " + item.getLanguageId());
 
         if (languageService.getOne(item.getLanguageId()).isEmpty())
             throw new NotFoundException();
