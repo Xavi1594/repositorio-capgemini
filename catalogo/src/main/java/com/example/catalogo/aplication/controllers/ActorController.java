@@ -85,6 +85,8 @@ class ActorController {
     }
 
     @GetMapping("/new")
+    @Operation(description = "Get new actors")
+    @ApiResponse(responseCode = "200", description = "Actors found")
     public List<ActorDTO> getNewActors(@RequestParam(required = false) Long daysAgo) {
         if (daysAgo == null) {
             daysAgo = 2L;

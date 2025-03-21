@@ -69,7 +69,6 @@ public class FilmController {
     @Transactional
     public ResponseEntity<Object> add(@RequestBody @Valid FilmShortDTO item)
             throws DuplicateKeyException, InvalidDataException {
-        // Convertir el DTO en una entidad Film antes de pasar al servicio
         Film filmEntity = FilmShortDTO.from(item);
         var newItem = filmService.add(filmEntity);
 

@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.example.catalogo.domains.core.entities.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -59,10 +60,12 @@ public class Language extends AbstractEntity implements Serializable {
 	private String name;
 
 	// bi-directional many-to-one association to Film
+	@JsonIgnore
 	@OneToMany(mappedBy = "language")
 	private List<Film> films;
 
 	// bi-directional many-to-one association to Film
+	@JsonIgnore
 	@OneToMany(mappedBy = "languageVO")
 	private List<Film> filmsVO;
 
