@@ -22,7 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.catalogo.domains.contracts.services.FilmService;
 import com.example.catalogo.domains.entities.Film;
 import com.example.catalogo.domains.entities.models.FilmDetailsDTO;
-import com.example.catalogo.domains.entities.models.FilmEditDTO;
 import com.example.catalogo.domains.entities.models.FilmPostDTO;
 import com.example.catalogo.domains.entities.models.FilmShortDTO;
 import com.example.catalogo.exceptions.DuplicateKeyException;
