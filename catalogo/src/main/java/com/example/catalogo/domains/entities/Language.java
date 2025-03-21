@@ -4,7 +4,6 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
@@ -56,7 +55,6 @@ public class Language extends AbstractEntity implements Serializable {
 	@Size(max = 20)
 	@JsonProperty("idioma")
 	@JsonView(Language.Partial.class)
-	@Pattern(regexp = "^[A-ZÁÉÍÓÚÑÜ]*$", message = "El nombre debe estar en mayúsculas")
 	private String name;
 
 	// bi-directional many-to-one association to Film
@@ -130,6 +128,52 @@ public class Language extends AbstractEntity implements Serializable {
 	public String toString() {
 		return "Language [languageId=" + languageId + ", name=" + name + "]";
 
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + languageId;
+		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((films == null) ? 0 : films.hashCode());
+		result = prime * result + ((filmsVO == null) ? 0 : filmsVO.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Language other = (Language) obj;
+		if (languageId != other.languageId)
+			return false;
+		if (lastUpdate == null) {
+			if (other.lastUpdate != null)
+				return false;
+		} else if (!lastUpdate.equals(other.lastUpdate))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (films == null) {
+			if (other.films != null)
+				return false;
+		} else if (!films.equals(other.films))
+			return false;
+		if (filmsVO == null) {
+			if (other.filmsVO != null)
+				return false;
+		} else if (!filmsVO.equals(other.filmsVO))
+			return false;
+		return true;
 	}
 
 }

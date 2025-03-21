@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,5 +66,19 @@ public class LanguageController {
                 .buildAndExpand(newItem.getLanguageId())
                 .toUri();
         return ResponseEntity.created(location).body(newItem);
+    }
+
+    @PutMapping(path = "/{id}")
+    @JsonView(Language.Partial.class)
+    public Language modify(@PathVariable int id, @Valid @RequestBody Language item)
+            throws BadRequestException, NotFoundException, InvalidDataException {
+        if (item.getLanguageId() != id)
+            System.out.println("ID recibido: " + id);
+        System.out.println("ID del lenguaje: " + item.getLanguageId());
+
+        if (languageService.getOne(item.getLanguageId()).isEmpty())
+            throw new NotFoundException();
+        languageService.modify(item);
+        return item;
     }
 }
