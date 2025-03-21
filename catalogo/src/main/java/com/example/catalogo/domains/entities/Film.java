@@ -41,6 +41,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * The persistent class for the film database table.
@@ -48,6 +50,8 @@ import jakarta.validation.constraints.Size;
  */
 @Entity
 @Table(name = "film")
+@Data
+@NoArgsConstructor
 @NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
 public class Film extends AbstractEntity<Film> implements Serializable {
 	private static final long serialVersionUID = 1L;

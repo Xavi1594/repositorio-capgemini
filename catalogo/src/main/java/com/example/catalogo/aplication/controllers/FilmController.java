@@ -62,6 +62,12 @@ public class FilmController {
         return FilmDetailsDTO.from(item.get());
     }
 
+    @GetMapping(params = { "page" })
+    @Operation(description = "Get a page of entities")
+    public Page<FilmShortDTO> getAll(@ParameterObject Pageable pageable) {
+        return filmService.getByProjection(pageable, FilmShortDTO.class);
+    }
+
     @Operation(summary = "Añadir una nueva pelicula")
     @ApiResponse(responseCode = "201", description = "Pelicula añadida")
     @ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
@@ -79,22 +85,16 @@ public class FilmController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping(params = { "page" })
-    @Operation(description = "Get a page of entities")
-    public Page<FilmShortDTO> getAll(@ParameterObject Pageable pageable) {
-        return filmService.getByProjection(pageable, FilmShortDTO.class);
-    }
-
     @PutMapping(path = "/{id}")
     @Operation(description = "Modify one entity by id")
     @ApiResponse(responseCode = "200", description = "Entity modified")
-    public void modify(@PathVariable int id, @Valid @RequestBody FilmEditDTO item)
+    public void modify(@PathVariable int id, @Valid @RequestBody FilmPostDTO item)
             throws NotFoundException, InvalidDataException {
         var film = filmService.getOne(id);
         if (film.isEmpty()) {
             throw new NotFoundException("No se encontró la pelicula con id " + id);
         }
-        filmService.modify(FilmEditDTO.from(item));
+        filmService.modify(FilmPostDTO.from(item));
     }
 
     @DeleteMapping(path = "/{id}")

@@ -1,20 +1,15 @@
 package com.example.catalogo.domains.entities.models;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.example.catalogo.domains.entities.Film;
 import com.example.catalogo.domains.entities.Language;
-import com.example.catalogo.domains.entities.Film.SpecialFeature;
 
 //import io.swagger.v3.oas.annotations.media.ArraySchema;
 //import io.swagger.v3.oas.annotations.media.Schema;
 //import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +18,6 @@ import lombok.NoArgsConstructor;
 //@Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class FilmPostDTO {
 
     public FilmPostDTO(int filmId, String title, Language language, Byte rentalDuration, BigDecimal rentalRate,
@@ -34,6 +28,9 @@ public class FilmPostDTO {
         this.rentalDuration = rentalDuration;
         this.rentalRate = rentalRate;
         this.replacementCost = replacementCost;
+    }
+
+    public FilmPostDTO() {
     }
 
     private int filmId;
