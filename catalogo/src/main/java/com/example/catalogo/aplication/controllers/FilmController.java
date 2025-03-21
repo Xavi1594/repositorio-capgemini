@@ -23,6 +23,7 @@ import com.example.catalogo.domains.contracts.services.FilmService;
 import com.example.catalogo.domains.entities.Film;
 import com.example.catalogo.domains.entities.models.FilmDetailsDTO;
 import com.example.catalogo.domains.entities.models.FilmEditDTO;
+import com.example.catalogo.domains.entities.models.FilmPostDTO;
 import com.example.catalogo.domains.entities.models.FilmShortDTO;
 import com.example.catalogo.exceptions.DuplicateKeyException;
 import com.example.catalogo.exceptions.InvalidDataException;
@@ -67,10 +68,11 @@ public class FilmController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Transactional
-    public ResponseEntity<Object> add(@RequestBody @Valid FilmShortDTO item)
+    public ResponseEntity<Object> add(@RequestBody @Valid FilmPostDTO item)
             throws DuplicateKeyException, InvalidDataException {
-        Film filmEntity = FilmShortDTO.from(item);
+        Film filmEntity = FilmPostDTO.from(item);
         var newItem = filmService.add(filmEntity);
+        System.out.println(filmEntity);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newItem.getFilmId()).toUri();

@@ -228,10 +228,12 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.filmId = filmId;
 	}
 
-	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive byte rentalDuration,
-			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
+	public Film(int filmId, @NotBlank @Size(max = 128) String title, @NotNull Language language,
+			@NotNull @Positive byte rentalDuration,
+			@NotNull @Digits(integer = 2, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal rentalRate,
+			@NotNull @Digits(integer = 3, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal replacementCost) {
 		super();
+		this.filmId = filmId;
 		this.title = title;
 		this.language = language;
 		this.rentalDuration = rentalDuration;
@@ -239,12 +241,10 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.replacementCost = replacementCost;
 	}
 
-	public Film(int filmId, @NotBlank @Size(max = 128) String title, @NotNull Language language,
-			@NotNull @Positive byte rentalDuration,
-			@NotNull @Digits(integer = 2, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal rentalRate,
-			@NotNull @Digits(integer = 3, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal replacementCost) {
+	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive byte rentalDuration,
+			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
 		super();
-		this.filmId = filmId;
 		this.title = title;
 		this.language = language;
 		this.rentalDuration = rentalDuration;
