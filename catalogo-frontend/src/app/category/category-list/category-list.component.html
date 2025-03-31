@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 class="title">Categorías</h1>
+  <div class="film-cards-container">
+  <mat-card *ngFor="let element of dataSource.data" class="film-card">
+      <mat-card-title>{{ element.name }}</mat-card-title>
+
+  </mat-card>
+  </div>
+</div>
