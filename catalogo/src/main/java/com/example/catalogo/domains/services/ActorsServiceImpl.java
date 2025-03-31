@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.catalogo.domains.contracts.repositories.ActorRepository;
@@ -111,5 +112,25 @@ public class ActorsServiceImpl implements ActorsService {
     @Override
     public <T> List<T> getByProjection(Class<T> type) {
         return dao.findAllBy(type);
+    }
+
+    @Override
+    public Optional<Actor> getOne(Specification<Actor> spec) {
+        return dao.findOne(spec);
+    }
+
+    @Override
+    public List<Actor> getAll(Specification<Actor> spec) {
+        return dao.findAll(spec);
+    }
+
+    @Override
+    public Page<Actor> getAll(Specification<Actor> spec, Pageable pageable) {
+        return dao.findAll(spec, pageable);
+    }
+
+    @Override
+    public List<Actor> getAll(Specification<Actor> spec, Sort sort) {
+        return dao.findAll(spec, sort);
     }
 }
