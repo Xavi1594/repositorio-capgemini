@@ -31,7 +31,8 @@ public class CatalogoServiceImpl implements CatalogoService {
         if (lastUpdate == null)
             lastUpdate = Timestamp.from(Instant.now().minusSeconds(36000));
         return new NewsDTO(
-                filmSrv.newsDTO(lastUpdate).stream().map(item -> new FilmShortDTO(item.getFilmId(), item.getTitle()))
+                filmSrv.newsDTO(lastUpdate).stream()
+                        .map(item -> new FilmShortDTO(item.getFilmId(), item.getTitle(), item.getDescription()))
                         .toList(),
                 actorSrv.NewsDTO(lastUpdate).stream().map(item -> ActorDTO.from(item)).toList(),
                 categorySrv.newsDTO(lastUpdate),

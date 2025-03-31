@@ -225,7 +225,7 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	@JsonBackReference
 	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
 
-	public Film(int i, String string) {
+	public Film(int i, String title, String description) {
 	}
 
 	public Film(int filmId) {

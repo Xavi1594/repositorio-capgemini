@@ -11,14 +11,16 @@ public record FilmShortDTO(
         int filmId,
         @JsonProperty("titulo")
         // @Schema(description = "Titulo de la pelicula")
-        String title) {
+        String title,
+        @JsonProperty("Descripción") String description) {
     public static FilmShortDTO from(Film film) {
-        return new FilmShortDTO(film.getFilmId(), film.getTitle());
+        return new FilmShortDTO(film.getFilmId(), film.getTitle(), film.getDescription());
     }
 
     public static Film from(FilmShortDTO source) {
         return new Film(
                 source.filmId(),
-                source.title());
+                source.title(),
+                source.description());
     }
 }
