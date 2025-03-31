@@ -33,14 +33,4 @@ h1 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 1024px) {
-  .film-cards-container {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  }
-}
 
-@media (max-width: 600px) {
-  .film-cards-container {
-    grid-template-columns: 1fr;
-  }
-}
