@@ -4,14 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { Pageable } from '../../core/model/Pageable';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Film } from '../model/Film';
 import { FilmService } from '../film.service';
 @Component({
-  selector: 'app-film-list',
-  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule],
+  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule],
   templateUrl: './film-list.component.html',
   styleUrl: './film-list.component.css'
 })
@@ -21,7 +21,7 @@ export class FilmListComponent {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Film>()
-  displayedColumns: string[] = ['id', 'titulo'];
+  displayedColumns: string[] = ['id', 'titulo', 'descripcion'];
 
   constructor (private filmService:FilmService,public dialog: MatDialog){}
 

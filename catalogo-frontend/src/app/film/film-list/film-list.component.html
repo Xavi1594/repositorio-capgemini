@@ -1,20 +1,35 @@
 <div class="container">
-  <h1>Listado de Películas</h1>
-  <div class="buttons">
-    <!-- <button mat-flat-button color="primary" (click)="createFilm()">Nuevo actor</button> -->
+  <h1 class="title">Listado de Películas</h1>
+
+  <!-- Contenedor de tarjetas con grid -->
+  <div class="film-cards-container">
+    <!-- Recorremos los elementos y mostramos una tarjeta por cada uno -->
+    <mat-card *ngFor="let element of dataSource.data" class="film-card">
+      <mat-card-header>
+        <div mat-card-avatar class="film-avatar">
+          <img src="https://picsum.photos/40" alt="Avatar" class="avatar-img" />
+        </div>
+        <mat-card-title>{{ element.titulo }}</mat-card-title>
+        <mat-card-subtitle>ID: {{ element.id }}</mat-card-subtitle>
+      </mat-card-header>
+
+
+      <!-- Descripción de la película -->
+      <mat-card-content>
+        <p>{{ element.descripcion }}</p>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    (page)="loadPage($event)"
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    [length]="totalElements"
+    showFirstLastButtons
+    class="mt-6">
+  </mat-paginator>
 </div>
-<mat-table [dataSource]="dataSource">
-  <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="titulo">
-    <mat-header-cell *matHeaderCellDef> Titulo  </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.titulo}} </mat-cell>
-</ng-container>
-
-
-<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<mat-paginator (page)="loadPage($event)" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons></mat-paginator>
