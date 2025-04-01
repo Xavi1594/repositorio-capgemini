@@ -26,7 +26,7 @@ export class ActorService {
     const url = id ? `${this.baseUrl}/${id}` : this.baseUrl;
     console.log(`Saving actor:`, actor);
     console.log(`URL:`, url);
-    let result = this.http.put<Actor>(url, actor);
+    let result = this.http.post<Actor>(url, actor);
     console.log(`Actor saved: ${actor.nombre}, ID: ${actor.id}`);
     return result;
   }

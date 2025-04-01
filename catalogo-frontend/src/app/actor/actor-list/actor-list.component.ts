@@ -68,7 +68,7 @@ createActor(){
     this.ngOnInit();
   });
 }
-editActor(){
+editActor(actor: Actor){
   const dialogRef = this.dialog.open(ActorEditComponent, {
     data: {}
   });
