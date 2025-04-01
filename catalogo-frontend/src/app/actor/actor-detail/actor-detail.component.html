@@ -1,1 +1,13 @@
-<p>actor-detail works!</p>
+
+<div class="film-cards-container">
+<mat-card *ngFor="let element of dataSource.data" class="film-card">
+    <mat-card-header>
+      <div mat-card-avatar class="film-avatar">
+        <img src="https://loremflickr.com/320/240/person" alt="Avatar" class="avatar-img" />
+      </div>
+      <mat-card-title>
+       {{ element.nombre }} {{ element.apellidos }}
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>

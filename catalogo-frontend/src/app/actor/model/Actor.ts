@@ -1,6 +1,7 @@
 export class Actor {
-  id!:number;
+  id?:number;
   nombre!:string;
   apellidos!:string;
+
 
 }

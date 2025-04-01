@@ -30,4 +30,8 @@ export class ActorService {
     console.log(`Actor saved: ${actor.nombre}, ID: ${actor.id}`);
     return result;
   }
+
+  getOneActor(id: number): Observable<Actor> {
+    return this.http.get<Actor>(`${this.baseUrl}/${id}`);
+  }
 }
