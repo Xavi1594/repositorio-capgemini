@@ -8,6 +8,10 @@ h1 {
   font-weight: bold;
   margin-bottom: 16px;
 }
+a{
+  text-decoration: none;
+  color:black;
+}
 
 .film-cards-container {
   display: grid;

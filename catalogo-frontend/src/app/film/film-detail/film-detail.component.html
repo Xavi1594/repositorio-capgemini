@@ -2,18 +2,17 @@
   <mat-card *ngIf="dataSource.data.length > 0" class="film-card">
     <mat-card-header>
       <mat-card-title>
-        {{ dataSource.data[0]?.titulo }}
+        {{ dataSource.data[0].titulo }}
       </mat-card-title>
 
-      <!-- Cabecera para Descripción -->
       <mat-card-subtitle class="header-title">
         Descripción:
       </mat-card-subtitle>
       <mat-card-subtitle>
-        {{ dataSource.data[0]?.descripcion }}
+        {{ dataSource.data[0].descripcion }}
       </mat-card-subtitle>
 
-      <!-- Cabecera para Actores -->
+
       <mat-card-subtitle class="header-title">
         Actores:
       </mat-card-subtitle>
@@ -23,12 +22,11 @@
         </ul>
       </mat-card-subtitle>
 
-      <!-- Cabecera para Idioma -->
       <mat-card-subtitle class="header-title">
         Idioma:
       </mat-card-subtitle>
       <mat-card-subtitle>
-        {{ dataSource.data[0]?.idioma }}
+        {{ dataSource.data[0].idioma }}
       </mat-card-subtitle>
     </mat-card-header>
   </mat-card>

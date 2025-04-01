@@ -50,7 +50,6 @@ mat-card img {
   color:black;
  }
 
-/* Estilo de los botones en la tarjeta */
 mat-card-actions {
   display: flex;
   justify-content: space-between;
