@@ -1,16 +1,22 @@
 <div class="container">
   <h1>Listado de Actores</h1>
+
+  <div class="buttons">
+    <button mat-flat-button color="primary" (click)="createActor()">Nuevo actor</button>
+</div>
   <div class="film-cards-container">
-    <mat-card *ngFor="let element of dataSource.data" class="film-card">
+  <mat-card *ngFor="let element of dataSource.data" class="film-card">
       <mat-card-header>
         <div mat-card-avatar class="film-avatar">
-          <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/ed/ed171e6a86eba8f5c7d977201c6a3bb8130da030.jpg" alt="Avatar" class="avatar-img" />
+          <img src="https://loremflickr.com/320/240/person" alt="Avatar" class="avatar-img" />
         </div>
-        <mat-card-title>{{ element.nombre }}</mat-card-title>
-        <mat-card-subtitle>ID: {{ element.apellidos }}</mat-card-subtitle>
+        <mat-card-title>
+          <a [routerLink]="['/actors', element.id]">{{ element.nombre }} {{ element.apellidos }}</a>
+        </mat-card-title>
       </mat-card-header>
     </mat-card>
   </div>
+</div>
 
   <mat-paginator (page)="loadPage($event)" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons></mat-paginator>
-</div>
+

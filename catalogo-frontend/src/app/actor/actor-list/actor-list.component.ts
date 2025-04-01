@@ -10,10 +10,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { ActorEditComponent } from '../actor-edit/actor-edit.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-actor-list',
-  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule],
+  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule, RouterModule],
   templateUrl: './actor-list.component.html',
   styleUrl: './actor-list.component.css'
 })
@@ -23,7 +25,7 @@ export class ActorListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Actor>();
-  displayedColumns: string[] = ['id','nombre' , 'apellidos']
+  displayedColumns: string[] = ['id','nombre' , 'apellidos', 'action']
 
   constructor(private actorService: ActorService, public dialog: MatDialog){}
 
@@ -57,15 +59,24 @@ export class ActorListComponent implements OnInit {
     });
   }
 
-// createActor(){
-//   const dialogRef = this.dialog.open(ActorEditComponent, {
-//     data: {}
-//   });
+createActor(){
+  const dialogRef = this.dialog.open(ActorEditComponent, {
+    data: {}
+  });
 
-//   dialogRef.afterClosed().subscribe(result => {
-//     this.ngOnInit();
-//   });
-// }
+  dialogRef.afterClosed().subscribe(result => {
+    this.ngOnInit();
+  });
+}
+editActor(){
+  const dialogRef = this.dialog.open(ActorEditComponent, {
+    data: {}
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    this.ngOnInit();
+  });
+}
 
 
 

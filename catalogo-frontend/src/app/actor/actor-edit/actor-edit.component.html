@@ -1,0 +1,31 @@
+<div class="container">
+  @if (actor!.id) {
+      <h1>Modificar actor</h1>
+  } @else {
+      <h1>Crear actor</h1>
+  }
+
+  <form>
+      <mat-form-field>
+          <mat-label>Identificador</mat-label>
+          <input type="text" matInput placeholder="Identificador" [(ngModel)]="actor!.id" name="id" disabled>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput placeholder="Nombre del autor" [(ngModel)]="actor!.nombre" name="nombre" required>
+          <mat-error>El nombre no puede estar vacío</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput placeholder="Apellido actor" [(ngModel)]="actor!.apellidos" name="apellidos" required>
+          <mat-error>La nacionalidad no puede estar vacía</mat-error>
+      </mat-form-field>
+  </form>
+
+  <div class="buttons">
+      <button mat-stroked-button (click)="onClose()">Cerrar</button>
+      <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+  </div>
+</div>

@@ -21,7 +21,8 @@ export class ActorService {
   }
 
   saveActors(actor: Actor): Observable<Actor> {
-    const { id } = actor;
+    const  id  = actor.id;
+    console.log('actor' + id)
     const url = id ? `${this.baseUrl}/${id}` : this.baseUrl;
     console.log(`Saving actor:`, actor);
     console.log(`URL:`, url);
