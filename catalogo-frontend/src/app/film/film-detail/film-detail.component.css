@@ -1,0 +1,92 @@
+.container{
+  padding: 32px 16px 16px 16px; /* Padding superior adicional */
+}
+
+.film-card {
+  background-color: #f4f4f4;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff4081;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+mat-card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+mat-card-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  margin: 8px 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 4px 0;
+}
+
+mat-card-header img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .film-card {
+    padding: 24px 16px;
+  }
+
+  mat-card-title {
+    font-size: 1.2rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .film-card {
+    max-width: 100%;
+    padding: 20px 10px;
+  }
+
+  mat-card-title {
+    font-size: 1.1rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .header-title {
+    font-size: 0.9rem;
+  }
+}

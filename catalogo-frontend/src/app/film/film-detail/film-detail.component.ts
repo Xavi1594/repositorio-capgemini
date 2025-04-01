@@ -21,6 +21,7 @@ export class FilmDetailComponent {
   displayedColumns: string[] = ['titulo','descripcion','idioma','rating']
 
   filmId :number=0
+  actores:string[]= []
 
   constructor(
     private filmservice:FilmService,
