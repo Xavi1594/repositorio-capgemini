@@ -8,7 +8,9 @@
         <div mat-card-avatar class="film-avatar">
           <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/ed/ed171e6a86eba8f5c7d977201c6a3bb8130da030.jpg" alt="Avatar" class="avatar-img" />
         </div>
-        <mat-card-title>{{ element.titulo }}</mat-card-title>
+        <mat-card-title>
+          <a [routerLink]="['/films', element.id]"> {{ element.titulo }}</a>
+        </mat-card-title>
         <mat-card-subtitle>ID: {{ element.id }}</mat-card-subtitle>
       </mat-card-header>
 

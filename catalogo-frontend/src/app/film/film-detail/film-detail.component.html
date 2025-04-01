@@ -1,0 +1,10 @@
+<div class="container">
+  <mat-card *ngIf="dataSource.data.length > 0" class="film-card">
+    <mat-card-header>
+
+      <mat-card-title>
+        {{ dataSource.data[0]?.titulo }} {{ dataSource.data[0]?.idioma }}
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>

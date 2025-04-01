@@ -10,8 +10,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Film } from '../model/Film';
 import { FilmService } from '../film.service';
+import { RouterModule } from '@angular/router';
 @Component({
-  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule],
+  imports: [MatButtonModule, MatIconModule, MatTableModule, CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule, RouterModule],
   templateUrl: './film-list.component.html',
   styleUrl: './film-list.component.css'
 })
