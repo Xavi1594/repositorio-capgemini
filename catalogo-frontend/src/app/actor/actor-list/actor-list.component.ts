@@ -61,16 +61,16 @@ export class ActorListComponent implements OnInit {
 
 createActor(){
   const dialogRef = this.dialog.open(ActorEditComponent, {
-    data: {}
+    data: { id: 0, nombre: '', apellidos: '' }
   });
 
   dialogRef.afterClosed().subscribe(result => {
     this.ngOnInit();
   });
 }
-editActor(actor: Actor){
+editActor(actor: Actor) {
   const dialogRef = this.dialog.open(ActorEditComponent, {
-    data: {}
+    data: actor
   });
 
   dialogRef.afterClosed().subscribe(result => {

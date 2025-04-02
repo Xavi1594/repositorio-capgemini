@@ -1,10 +1,5 @@
 <div class="container">
-  @if (actor!.id) {
-      <h1>Modificar actor</h1>
-  } @else {
-      <h1>Crear actor</h1>
-  }
-
+  <h1 mat-dialog-title>{{ actor.id ? 'Modificar Actor' : 'Crear Actor' }}</h1>
   <form>
       <mat-form-field>
           <mat-label>Identificador</mat-label>

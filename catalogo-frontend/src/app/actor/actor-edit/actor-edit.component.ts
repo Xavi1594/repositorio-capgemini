@@ -15,22 +15,32 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ActorEditComponent implements OnInit {
 
-  actor:Actor|undefined;
+  actor!:Actor;
 
   constructor(
     public dialogRef: MatDialogRef<ActorEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Actor,
     private actorService: ActorService
 ) {}
 ngOnInit(): void {
-    this.actor =this.data.actor ? Object.assign({}, this.data.actor): new Actor();
-}
-onSave() {
-  console.log('Actor before save:', this.actor);
 
-  this.actorService.saveActors(this.actor!).subscribe(() => {
-    this.dialogRef.close();
-  });
+  if (this.data && this.data.id !== undefined) {
+    this.actor = { ...this.data };
+  } else {
+
+    this.actor = { id: 0, nombre: '', apellidos: '' };
+  }
+}
+onSave(): void {
+  this.actorService.saveActors(this.actor).subscribe(
+    (result) => {
+      console.log('Actor guardado con éxito:', result);
+      this.dialogRef.close(true);
+    },
+    (error) => {
+      console.error('Error al guardar el actor:', error);
+    }
+  );
 }
 onClose() {
   this.dialogRef.close();

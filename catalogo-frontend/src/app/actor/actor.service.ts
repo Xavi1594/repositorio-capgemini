@@ -9,7 +9,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ActorService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private baseUrl = 'http://localhost:8080/actors/v1';
 
   getActors(pageable: Pageable): Observable<ActorPage> {
@@ -21,17 +21,22 @@ export class ActorService {
   }
 
   saveActors(actor: Actor): Observable<Actor> {
-    const  id  = actor.id;
-    console.log('actor' + id)
-    const url = id ? `${this.baseUrl}/${id}` : this.baseUrl;
-    console.log(`Saving actor:`, actor);
-    console.log(`URL:`, url);
-    let result = this.http.post<Actor>(url, actor);
-    console.log(`Actor saved: ${actor.nombre}, ID: ${actor.id}`);
+    const id = actor.id;
+    let result: Observable<Actor>;
+
+    if (id) {
+      const url = `${this.baseUrl}/${id}`;
+      result = this.http.put<Actor>(url, actor);
+    } else {
+      result = this.http.post<Actor>(this.baseUrl, actor);
+    }
+
     return result;
   }
 
   getOneActor(id: number): Observable<Actor> {
     return this.http.get<Actor>(`${this.baseUrl}/${id}`);
   }
+
+
 }
