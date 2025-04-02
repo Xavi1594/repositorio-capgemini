@@ -13,7 +13,7 @@
         <mat-card-title>
           <a [routerLink]="['/actors', element.id]">{{ element.nombre }} {{ element.apellidos }}</a>
         </mat-card-title>
-        <button (click)="editActor(element)">editar</button>
+        <button class="btn btn-primary" (click)="editActor(element)">editar</button>
       </mat-card-header>
     </mat-card>
   </div>
