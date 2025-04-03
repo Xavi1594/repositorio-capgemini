@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.example.catalogo.domains.entities.Film;
 import com.example.catalogo.domains.entities.Film.SpecialFeature;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 //import io.swagger.v3.oas.annotations.media.ArraySchema;
 //import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,39 +27,55 @@ import lombok.NoArgsConstructor;
 public class FilmEditDTO {
         // @Schema(description = "Identificador de la película", accessMode =
         // AccessMode.READ_ONLY)
+        @JsonProperty("id")
         private int filmId;
         // @Schema(description = "Una breve descripción o resumen de la trama de la
         // película", minLength = 2)
+        @JsonProperty("descripcion")
         private String description;
         // @Schema(description = "La duración de la película, en minutos", minimum =
         // "0", exclusiveMinimum = true)
         private Integer length;
         // @Schema(description = "La clasificación por edades asignada a la película",
         // allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})
-        @Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$")
+
+        // @Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$")
         private String rating;
+
         // @Schema(description = "El año en que se estrenó la película", minimum =
         // "1901", maximum = "2155")
+        @JsonProperty("lanzamiento")
+
         private Short releaseYear;
         // @Schema(description = "La duración del período de alquiler, en días", minimum
         // = "0", exclusiveMinimum = true)
         @NotNull
+        @JsonProperty("periodo")
+
         private Byte rentalDuration;
         // @Schema(description = "El coste de alquilar la película por el período
         // establecido", minimum = "0", exclusiveMinimum = true)
         @NotNull
+        @JsonProperty("precio")
+
         private BigDecimal rentalRate;
         // @Schema(description = "El importe cobrado al cliente si la película no se
         // devuelve o se devuelve en un estado dañado", minimum = "0", exclusiveMinimum
         // = true)
         @NotNull
+        @JsonProperty("sancion")
+
         private BigDecimal replacementCost;
         // @Schema(description = "El título de la película")
         @NotBlank
         @Size(min = 2, max = 128)
+        @JsonProperty("titulo")
+
         private String title;
         // @Schema(description = "El identificador del idioma de la película")
         @NotNull
+        @JsonProperty("idioma")
+
         private Integer languageId;
         // @Schema(description = "El identificador del idioma original de la película")
         private Integer languageVOId;

@@ -223,7 +223,11 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	// bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonBackReference
+
 	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference
+	private List<FilmActor> actors;
 
 	public Film(int i, String title, String description) {
 	}
@@ -235,7 +239,9 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	public Film(int filmId, @NotBlank @Size(max = 128) String title, @NotNull Language language,
 			@NotNull @Positive byte rentalDuration,
 			@NotNull @Digits(integer = 2, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal rentalRate,
-			@NotNull @Digits(integer = 3, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal replacementCost) {
+			@NotNull @Digits(integer = 3, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal replacementCost,
+			List<Integer> actors,
+			String description) {
 		super();
 		this.filmId = filmId;
 		this.title = title;
@@ -243,17 +249,24 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.replacementCost = replacementCost;
+		this.description = description;
+		this.filmActors = actors.stream().map(actorId -> new FilmActor(this, new Actor(actorId))).toList();
+		// this.categories =
 	}
 
 	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive byte rentalDuration,
 			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,
+			String description, List<FilmActor> actors) {
 		super();
 		this.title = title;
 		this.language = language;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.replacementCost = replacementCost;
+		this.description = description;
+		this.actors = actors.stream().map(actor -> new FilmActor(this, actor.getActor())).toList();
+
 	}
 
 	public Film(int filmId, @NotBlank @Size(max = 128) String title, String description, @Min(1895) Short releaseYear,
