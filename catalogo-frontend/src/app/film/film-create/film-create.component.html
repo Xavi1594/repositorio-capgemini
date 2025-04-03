@@ -1,49 +1,40 @@
-<form [formGroup]="miForm" (ngSubmit)="onSave()">
+<form [formGroup]="miForm" (ngSubmit)="onSave()" class="container mt-5">
+  <h1 class="text-center">Crear Película</h1>
   <!-- Título -->
-  <div class="form-floating mb-2">
+  <div class="form-floating mb-3">
     <input class="form-control" formControlName="titulo" placeholder="Título" required>
     <label for="titulo">Título</label>
   </div>
 
   <!-- Descripción -->
-  <div class="form-floating mb-2">
-    <input class="form-control" formControlName="descripcion" placeholder="Descripción" required>
+  <div class="form-floating mb-3">
+    <textarea class="form-control" formControlName="descripcion" placeholder="Descripción" rows="4" required></textarea>
     <label for="descripcion">Descripción</label>
   </div>
 
-  <!-- Periodo-->
-  <div class="form-floating mb-2">
+  <!-- Periodo -->
+  <div class="form-floating mb-3">
     <input type="number" class="form-control" formControlName="periodo" placeholder="Periodo de alquiler" required>
     <label for="periodo">Periodo de alquiler</label>
   </div>
 
-  <!-- Sanción-->
-  <div class="form-floating mb-2">
-    <input type="number" class="form-control" formControlName="sancion" placeholder="Sanción" required>
-    <label for="sancion">Sanción</label>
-  </div>
-
-  <!-- Precio-->
-  <div class="form-floating mb-2">
+  <!-- Precio -->
+  <div class="form-floating mb-3">
     <input type="number" class="form-control" formControlName="precio" placeholder="Precio" required>
     <label for="precio">Precio</label>
   </div>
 
+<!-- Idioma (select) -->
+<div class="form-floating mb-3">
+  <select class="form-control" formControlName="idiomaId" required>
+    <option *ngFor="let idioma of idiomas" [value]="idioma.languageId">
+      {{ idioma.idioma }}
+    </option>
+  </select>
+  <label for="idiomaId">Idioma</label>
+</div>
 
-
-  Idioma (selección de idioma)
-  <div class="form-floating mb-2">
-    <input type="number" class="form-control" formControlName="idiomaId" placeholder="Idioma ID" required>
-    <label for="idiomaId">Idioma (ID)</label>
+  <div class="text-center py-3">
+    <button class="btn btn-primary btn-lg" type="submit">Enviar</button>
   </div>
-
-
-
-  <!-- Actores -->
-  <div class="form-floating mb-2">
-    <input class="form-control" formControlName="actores" placeholder="Actores (IDs separados por coma)" required>
-    <label for="actores">Actores (IDs separados por coma)</label>
-  </div>
-
-  <button class="btn btn-primary" type="submit">Enviar</button>
 </form>
