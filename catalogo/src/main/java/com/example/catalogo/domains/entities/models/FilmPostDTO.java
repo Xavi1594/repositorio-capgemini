@@ -1,6 +1,7 @@
 package com.example.catalogo.domains.entities.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,7 @@ public class FilmPostDTO {
     private String description;
 
     @JsonProperty("actores")
-    private List<Integer> actors;
+    private List<Integer> actors = new ArrayList<>();
 
     // @JsonProperty("categorias")
     // private List<Integer> categories;
