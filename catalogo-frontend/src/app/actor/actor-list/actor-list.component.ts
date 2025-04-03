@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ActorEditComponent } from '../actor-edit/actor-edit.component';
 import { RouterModule } from '@angular/router';
+import { DialogconfirmationComponent } from '../../core/dialogconfirmation/dialogconfirmation.component';
 
 @Component({
   selector: 'app-actor-list',
@@ -80,4 +81,19 @@ editActor(actor: Actor) {
 
 
 
+ deleteActor(actor: Actor) {
+  const dialogRef = this.dialog.open(DialogconfirmationComponent, {
+    data: { title: "Eliminar Actor", description: "Atención, si borra el actor se perderán los datos. ¿Desea eliminar el actor?" }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result && actor.id) { // Asegúrate de que actor.id esté definido
+      this.actorService.deleteActor(actor.id).subscribe(() => {
+        this.ngOnInit();  // Refresca la lista de actores después de la eliminación
+      });
+    } else {
+      console.error("El actor no tiene un ID válido.");
+    }
+  });
+}
 }

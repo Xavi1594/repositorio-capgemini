@@ -8,5 +8,6 @@ export const routes: Routes = [
   {path: 'actors', loadComponent:()=>import('../app/actor/actor-list/actor-list.component').then(m=>m.ActorListComponent)},
   {path: 'actors/:id', loadComponent:()=>import ('../app/actor/actor-detail/actor-detail.component').then(m=>m.ActorDetailComponent)},
   {path: 'films/:id', loadComponent:()=>import('../app/film/film-detail/film-detail.component').then(m=>m.FilmDetailComponent)},
+  {path:'language', loadComponent:()=>import('../app/language/language-list/language-list.component').then(m=>m.LanguageListComponent)}
 
 ];

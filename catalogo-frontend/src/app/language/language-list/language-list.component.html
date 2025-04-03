@@ -1,0 +1,21 @@
+<div class="container my-5">
+  <h1 class="title text-center mb-5">Listado de Idiomas</h1>
+
+  <div class="text-center mb-4">
+    <!-- <button mat-flat-button color="primary" class="btn btn-primary px-4 py-2" (click)="createLanguage()">Nuevo Idioma</button> -->
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <mat-card *ngFor="let element of dataSource.data" class="film-card p-4 border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-3">{{ element.idioma }}</h5>
+        <div class="d-flex justify-content-between">
+          <!-- <button class="btn btn-outline-primary px-4 py-2" (click)="editLanguage(element)">Editar</button>
+          <button class="btn btn-outline-danger px-4 py-2" (click)="deleteLanguage(element)">Eliminar</button> -->
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+
+</div>

@@ -1,11 +1,12 @@
 <div class="container">
   <h1>Listado de Actores</h1>
 
-  <div class="buttons">
+  <div class="buttons mb-4">
     <button mat-flat-button color="primary" (click)="createActor()">Nuevo actor</button>
-</div>
+  </div>
+
   <div class="film-cards-container">
-  <mat-card *ngFor="let element of dataSource.data" class="film-card">
+    <mat-card *ngFor="let element of dataSource.data" class="film-card mb-4">
       <mat-card-header>
         <div mat-card-avatar class="film-avatar">
           <img src="https://loremflickr.com/320/240/person" alt="Avatar" class="avatar-img" />
@@ -13,11 +14,22 @@
         <mat-card-title>
           <a [routerLink]="['/actors', element.id]">{{ element.nombre }} {{ element.apellidos }}</a>
         </mat-card-title>
-        <button class="btn btn-primary" (click)="editActor(element)">editar</button>
       </mat-card-header>
+
+      <div class="card-actions d-flex justify-content-between p-3">
+        <button class="btn btn-primary" (click)="editActor(element)">Editar</button>
+        <button class="btn btn-danger" (click)="deleteActor(element)">Borrar</button>
+      </div>
     </mat-card>
   </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    (page)="loadPage($event)"
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    [length]="totalElements"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>
-
-  <mat-paginator (page)="loadPage($event)" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons></mat-paginator>
-

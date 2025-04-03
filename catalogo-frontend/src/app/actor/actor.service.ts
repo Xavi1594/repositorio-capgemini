@@ -37,6 +37,8 @@ export class ActorService {
   getOneActor(id: number): Observable<Actor> {
     return this.http.get<Actor>(`${this.baseUrl}/${id}`);
   }
-
+  deleteActor(idActor: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${idActor}`);
+  }
 
 }
