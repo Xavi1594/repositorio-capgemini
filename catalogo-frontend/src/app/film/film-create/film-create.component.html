@@ -1,1 +1,49 @@
-<p>film-create works!</p>
+<form [formGroup]="miForm" (ngSubmit)="onSave()">
+  <!-- Título -->
+  <div class="form-floating mb-2">
+    <input class="form-control" formControlName="titulo" placeholder="Título" required>
+    <label for="titulo">Título</label>
+  </div>
+
+  <!-- Descripción -->
+  <div class="form-floating mb-2">
+    <input class="form-control" formControlName="descripcion" placeholder="Descripción" required>
+    <label for="descripcion">Descripción</label>
+  </div>
+
+  <!-- Periodo-->
+  <div class="form-floating mb-2">
+    <input type="number" class="form-control" formControlName="periodo" placeholder="Periodo de alquiler" required>
+    <label for="periodo">Periodo de alquiler</label>
+  </div>
+
+  <!-- Sanción-->
+  <div class="form-floating mb-2">
+    <input type="number" class="form-control" formControlName="sancion" placeholder="Sanción" required>
+    <label for="sancion">Sanción</label>
+  </div>
+
+  <!-- Precio-->
+  <div class="form-floating mb-2">
+    <input type="number" class="form-control" formControlName="precio" placeholder="Precio" required>
+    <label for="precio">Precio</label>
+  </div>
+
+
+
+  Idioma (selección de idioma)
+  <div class="form-floating mb-2">
+    <input type="number" class="form-control" formControlName="idiomaId" placeholder="Idioma ID" required>
+    <label for="idiomaId">Idioma (ID)</label>
+  </div>
+
+
+
+  <!-- Actores -->
+  <div class="form-floating mb-2">
+    <input class="form-control" formControlName="actores" placeholder="Actores (IDs separados por coma)" required>
+    <label for="actores">Actores (IDs separados por coma)</label>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Enviar</button>
+</form>

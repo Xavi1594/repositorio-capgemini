@@ -25,5 +25,19 @@ export class FilmService {
   getOneFilm(id: number): Observable<Film> {
     return this.http.get<Film>(`${this.baseUrl}/${id}`);
   }
+
+  saveFilms(film: Film): Observable<Film> {
+    const id = film.id;
+    let result: Observable<Film>;
+
+    if (id) {
+      const url = `${this.baseUrl}/${id}`;
+      result = this.http.put<Film>(url, film);
+    } else {
+      result = this.http.post<Film>(this.baseUrl, film);
+    }
+    return result;
+  }
 }
+
 

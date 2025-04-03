@@ -1,13 +1,18 @@
-export class Film {
-  id!:number;
-  titulo!:string;
-  descripcion!:string;
-  rating? :string;
-  valoracion?:string;
-  idioma?:string;
-  actores!:string[];
-  categorias!:string[];
+import { Language } from "../../language/model/Language";
 
+export class Film {
+  id?: number;
+  titulo!: string;
+  idioma!: Language;
+  periodo?: number;
+  precio?: number;
+  sancion?: number;
+  coste?:number;
+  descripcion!: string;
+  // rating?: string;
+  // languageVOId?: number;
+  // actores!: string[];
+  // lanzamiento?: number;
 
 
 }
