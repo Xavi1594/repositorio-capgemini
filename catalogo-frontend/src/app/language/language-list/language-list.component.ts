@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { LanguageEditComponent } from '../language-edit/language-edit.component';
 
 @Component({
   selector: 'app-language-list',
@@ -23,15 +24,28 @@ import { MatIconModule } from '@angular/material/icon';
 export class LanguageListComponent implements OnInit {
   dataSource = new MatTableDataSource<Language>();
 
-  constructor(private lannguageService:LanguageService,
+  constructor(private languageService:LanguageService,
     public dialog:MatDialog,
   ) { }
   ngOnInit(): void {
-  this.lannguageService.getLanguages().subscribe(
+  this.languageService.getLanguages().subscribe(
     language=>this.dataSource.data=language
   );
 
   }
+   createLanguage() {
+     const dialogRef = this.dialog.open(LanguageEditComponent, {
+       data: {languageId :0, idioma:''}
+     });
+
+     dialogRef.afterClosed().subscribe(result => {
+       this.ngOnInit();
+     });
+   }
 
 
-}
+
+
+
+  }
+

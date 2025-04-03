@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <h1 mat-dialog-title class="text-center mb-4">
+    {{ language?.languageId ? 'Modificar Idioma' : 'Crear Idioma' }}
+  </h1>
+
+  <form>
+
+    <!-- Campo Identificador -->
+    <mat-form-field class="w-100 mb-4">
+      <mat-label>Identificador</mat-label>
+      <input type="text" matInput placeholder="Identificador" [(ngModel)]="language!.languageId" name="id" disabled>
+    </mat-form-field>
+
+    <!-- Campo Nombre del Idioma -->
+    <mat-form-field class="w-100 mb-4">
+      <mat-label>Idioma</mat-label>
+      <input type="text" matInput placeholder="Nombre del idioma" [(ngModel)]="language!.idioma" name="nombre" required>
+      <mat-error>El nombre no puede estar vacío</mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <!-- Botones de Acción -->
+  <div class="d-flex justify-content-between mt-4">
+    <button mat-stroked-button class="btn btn-secondary px-4 py-2" (click)="onClose()">Cerrar</button>
+    <button mat-flat-button color="primary" class="btn btn-primary px-4 py-2" (click)="onSave()">Guardar</button>
+  </div>
+</div>
