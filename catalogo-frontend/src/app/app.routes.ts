@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { CategoryListComponent } from './category/category-list/category-list.component';
-import { ActorListComponent } from './actor/actor-list/actor-list.component';
 
 export const routes: Routes = [
   {path: '', redirectTo:'/films', pathMatch:'full' },

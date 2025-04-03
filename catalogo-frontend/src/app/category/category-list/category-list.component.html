@@ -1,9 +1,13 @@
 <div class="container">
   <h1 class="title">Categorías</h1>
+  <div class="buttons">
+    <button mat-flat-button color="primary" (click)="createCategory()">Nueva Categoría</button>
+</div>
   <div class="film-cards-container">
   <mat-card *ngFor="let element of dataSource.data" class="film-card">
       <mat-card-title>{{ element.name }}</mat-card-title>
-
+      <button class="btn btn-primary" (click)="editCategory(element)">Editar</button>
+      <button class="btn btn-danger" (click)="deleteCategory(element)">Eliminar</button>
   </mat-card>
   </div>
 </div>

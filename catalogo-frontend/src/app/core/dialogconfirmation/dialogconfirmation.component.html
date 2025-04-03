@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header p-4">
+      <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body py-5 px-5">
+      <p [innerHTML]="description" class="mb-0"></p>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer py-4 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary px-5 py-3" (click)="onClose()">Cancelar</button>
+      <button type="button" class="btn btn-danger px-5 py-3" (click)="onClose(true)">Eliminar</button>
+    </div>
+
+  </div>
+</div>

@@ -16,9 +16,17 @@ export class CategoryService {
   }
 
   saveCategory(category: Category): Observable<Category | null> {
-    const { id } = category;
-    const url = id ? `${this.baseUrl}/${id}` : this.baseUrl;
-    return this.http.put<Category>(url, category);
+  const id = category.id;
+     let result: Observable<Category>;
+
+     if (id) {
+       const url = `${this.baseUrl}/${id}`;
+       result = this.http.put<Category>(url, category);
+     } else {
+       result = this.http.post<Category>(this.baseUrl, category);
+     }
+
+     return result;
   }
 
   deleteCategory(idCategory: number): Observable<any> {

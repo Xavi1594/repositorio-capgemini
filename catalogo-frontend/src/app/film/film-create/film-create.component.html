@@ -1,40 +1,28 @@
-<form [formGroup]="miForm" (ngSubmit)="onSave()" class="container mt-5">
-  <h1 class="text-center">Crear Película</h1>
-  <!-- Título -->
-  <div class="form-floating mb-3">
-    <input class="form-control" formControlName="titulo" placeholder="Título" required>
-    <label for="titulo">Título</label>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <!-- Título del Header -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="fas fa-store"></i> CAPGEFLIX
+    </a>
 
-  <!-- Descripción -->
-  <div class="form-floating mb-3">
-    <textarea class="form-control" formControlName="descripcion" placeholder="Descripción" rows="4" required></textarea>
-    <label for="descripcion">Descripción</label>
-  </div>
+    <!-- Botón para pantallas pequeñas (Hamburger Menu) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <!-- Periodo -->
-  <div class="form-floating mb-3">
-    <input type="number" class="form-control" formControlName="periodo" placeholder="Periodo de alquiler" required>
-    <label for="periodo">Periodo de alquiler</label>
+    <!-- Menú de Navegación -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories" routerLinkActive="active">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/actors" routerLinkActive="active">Actores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/films" routerLinkActive="active">Películas</a>
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <!-- Precio -->
-  <div class="form-floating mb-3">
-    <input type="number" class="form-control" formControlName="precio" placeholder="Precio" required>
-    <label for="precio">Precio</label>
-  </div>
-
-<!-- Idioma (select) -->
-<div class="form-floating mb-3">
-  <select class="form-control" formControlName="idiomaId" required>
-    <option *ngFor="let idioma of idiomas" [value]="idioma.languageId">
-      {{ idioma.idioma }}
-    </option>
-  </select>
-  <label for="idiomaId">Idioma</label>
-</div>
-
-  <div class="text-center py-3">
-    <button class="btn btn-primary btn-lg" type="submit">Enviar</button>
-  </div>
-</form>
+</nav>
