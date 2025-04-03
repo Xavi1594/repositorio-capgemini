@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,22 +72,26 @@ public class CategoryController {
     public Category modify(@PathVariable int id, @Valid @RequestBody Category item)
             throws BadRequestException, NotFoundException, InvalidDataException {
 
-        // Verifica que el ID en la URL coincide con el ID del objeto que se está
-        // enviando
         if (item.getCategoryId() != id) {
             throw new BadRequestException("El ID del recurso no coincide con el ID proporcionado en el cuerpo.");
         }
 
-        // Verifica que la categoría exista en la base de datos
         if (categoriesService.getOne(id).isEmpty()) {
             throw new NotFoundException("Categoría no encontrada.");
         }
 
-        // Llama al servicio para modificar la categoría
         categoriesService.modify(item);
 
-        // Retorna el objeto modificado
         return item;
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) throws NotFoundException {
+        if (categoriesService.getOne(id).isEmpty()) {
+            throw new NotFoundException("Categoría no encontrada.");
+        }
+        categoriesService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.example.catalogo.domains.core.entities.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -26,7 +27,7 @@ public class Category extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
+	@JsonProperty("id")
 	@Column(name = "category_id", unique = true, nullable = false)
 	private int categoryId;
 
